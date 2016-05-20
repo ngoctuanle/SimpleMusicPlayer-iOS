@@ -31,6 +31,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var isShowTrack = false
     var isTopHit = false
     
+    var clientid = "a204192a74c9b0597d7fb11170d08752"
+    
     //var isSearch =  false
     
     var HUD: JGProgressHUD!
@@ -518,7 +520,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func loadTracks(input: String) -> [Track]{
         var list = [Track]()
-        let SAMPLE = "http://api.soundcloud.com/users/197567455/tracks.json?client_id=a15536b2a316285ad39fa4643ddfed8c&q="
+        let SAMPLE = "http://api.soundcloud.com/users/197567455/tracks.json?client_id=\(clientid)&q="
         let query = input.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         let url = SAMPLE + query!
         let data = NSData(contentsOfURL: NSURL(string: url)!)
@@ -542,7 +544,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                     duration_f: song["duration"] as! NSNumber,
                                     username: dic.objectForKey("username")! as! String,
                                     playback_count: playc,
-                                    stream_url: "\(self.toString(song["stream_url"]!))?client_id=a15536b2a316285ad39fa4643ddfed8c",
+                                    stream_url: "\(self.toString(song["stream_url"]!))?client_id=\(clientid)",
                                     permalink_url: self.toString(song["permalink_url"]!)))
                             }
                         }
@@ -558,7 +560,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func loadTopHit(idgroup: String) -> [Track] {
         var list = [Track]()
-        let data = NSData(contentsOfURL: NSURL(string: "http://api.soundcloud.com/groups/\(idgroup)/tracks?client_id=a15536b2a316285ad39fa4643ddfed8c")!)
+        let data = NSData(contentsOfURL: NSURL(string: "http://api.soundcloud.com/groups/\(idgroup)/tracks?client_id=\(clientid)")!)
         do {
             if data != nil {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
@@ -579,7 +581,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                     duration_f: song["duration"] as! NSNumber,
                                     username: dic.objectForKey("username")! as! String,
                                     playback_count: playc,
-                                    stream_url: "\(self.toString(song["stream_url"]!))?client_id=a15536b2a316285ad39fa4643ddfed8c",
+                                    stream_url: "\(self.toString(song["stream_url"]!))?client_id=\(clientid)",
                                     permalink_url: self.toString(song["permalink_url"]!)))
                             }
                         }
