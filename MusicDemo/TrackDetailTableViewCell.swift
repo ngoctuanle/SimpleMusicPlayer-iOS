@@ -9,6 +9,12 @@
 import UIKit
 
 class TrackDetailTableViewCell: UITableViewCell {
+    @IBOutlet var img: UIImageView!
+    @IBOutlet var username: UILabel!
+    @IBOutlet var duration: UILabel!
+    @IBOutlet var title_song: UILabel!
+    @IBOutlet var playback: UILabel!
+    @IBOutlet var btnMor: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +18,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+            try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
+            try! AVAudioSession.sharedInstance().setActive(true)
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
+        
+        UISearchBar.appearance().barTintColor = UIColor(hex: "1b2b3a")
+        UISearchBar.appearance().tintColor = UIColor.whiteColor()
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        // Configure tracker from GoogleService-Info.plist.
+        var configureError:NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        // Optional: configure GAI options.
+        let gai = GAI.sharedInstance()
+        gai.trackUncaughtExceptions = true  // report uncaught exceptions
+        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+        
         return true
     }
-
+    
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+        if event?.type == UIEventType.RemoteControl {
+            if event?.subtype == UIEventSubtype.RemoteControlPause {
+                audioPlayer.pause()
+            }
+            if event?.subtype == UIEventSubtype.RemoteControlStop {
+                
+            }
+            if event?.subtype == UIEventSubtype.RemoteControlPlay {
+                audioPlayer.resume()
+            }
+            if event?.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
+                
+            }
+            if event?.subtype == UIEventSubtype.RemoteControlNextTrack {
+                MusicViewController.shareInstance().nextSong()
+            }
+            if event?.subtype == UIEventSubtype.RemoteControlPreviousTrack {
+                MusicViewController.shareInstance().PreviousSong()
+            }
+        }
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

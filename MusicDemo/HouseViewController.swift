@@ -1,14 +1,14 @@
 //
-//  SearchNavController.swift
+//  HouseViewController.swift
 //  MusicDemo
 //
-//  Created by Tuan Le on 1/23/16.
+//  Created by Tuan Le on 3/22/16.
 //  Copyright © 2016 Tuan Le. All rights reserved.
 //
 
 import UIKit
 
-class SearchNavController: UINavigationController {
+class HouseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

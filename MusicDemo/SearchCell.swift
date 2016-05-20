@@ -9,6 +9,8 @@
 import UIKit
 
 class SearchCell: UITableViewCell {
+    @IBOutlet var img: UIImageView!
+    @IBOutlet var txt: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

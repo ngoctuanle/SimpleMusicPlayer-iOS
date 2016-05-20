@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+public struct Track {
+    let title_song: String!
+    let artwork_url: String!
+    let duration: String!
+    let duration_f: NSNumber!
+    let username: String!
+    let playback_count:String!
+    let stream_url: String!
+    let permalink_url: String!
+}
